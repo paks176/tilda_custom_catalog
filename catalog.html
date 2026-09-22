@@ -2,41 +2,50 @@
     <div class="t-container custom-card__container">
         <div class="custom-card">
             <div class="custom-card__label">Строится</div>
-            <div class="custom-card__top">
-                <img
-                    src="https://optim.tildacdn.com/stor6332-6361-4932-b232-363131303830/-/cover/360x396/center/center/-/format/webp/3cfa2d46a4680474e26c6430f4737e70.jpg.webp"
-                    alt="Товар"
+            <a href="/tproduct/570895560693-ofisnoe-pomeschenie-g-kazan">
+                <div class="custom-card__top">
+                    <img
+                        src="https://optim.tildacdn.com/stor6332-6361-4932-b232-363131303830/-/cover/360x396/center/center/-/format/webp/3cfa2d46a4680474e26c6430f4737e70.jpg.webp"
+                        alt="Товар"
+                    >
+                </div>
+
+                <div
+                    class="custom-card__info"
                 >
-            </div>
+                    <div class="custom-card__flex">
+                        <div class="custom-card__type">Офисная</div>
+                        <p>240 м<sup>2</sup></p>
+                    </div>
+                    <div class="custom-card__city">
+                        Казань
+                    </div>
 
-            <div class="custom-card__info">
-                <div class="custom-card__flex">
-                    <div class="custom-card__type">Офисная</div>
-                    <p>240 м<sup>2</sup></p>
+                    <div class="custom-card__flex">
+                        <span>Цена:</span>
+                        <span class="custom-card__price">от 24 500 000 ₽</span>
+                    </div>
+
+                    <div class="custom-card__flex">
+                        <span>Платеж:</span>
+                        <span class="custom-card__price">от 512 000 ₽</span>
+                    </div>
+
+                    <div class="custom-card__flex">
+                        <span>Вернется налогами:</span>
+                        <span class="custom-card__price">от 512 000 ₽</span>
+                    </div>
+
+                    <span class="custom-card__sku">LT-ASK-KZN-0147*</span>
                 </div>
-                <div class="custom-card__city">
-                    Казань
-                </div>
+            </a>
 
-                <div class="custom-card__flex">
-                    <span>Цена:</span>
-                    <span class="custom-card__price">от 24 500 000 ₽</span>
-                </div>
-
-                <div class="custom-card__flex">
-                    <span>Платеж:</span>
-                    <span class="custom-card__price">от 512 000 ₽</span>
-                </div>
-
-                <div class="custom-card__flex">
-                    <span>Вернется налогами:</span>
-                    <span class="custom-card__price">от 512 000 ₽</span>
-                </div>
-
-                <span class="custom-card__sku">LT-ASK-KZN-0147*</span>
-            </div>
-
-            <button>Запросить объект</button>
+            <a
+                class="custom-card__request-button"
+                href="#real_estate_feedback"
+            >
+                Запросить объект
+            </a>
         </div>
     </div>
 </section>
@@ -44,6 +53,10 @@
 <style>
     #custom-catalog {
         padding: 80px 0;
+    }
+
+    #rec4071407101 {
+        display: none;
     }
 
     .custom-card {
@@ -54,6 +67,12 @@
         border: 1px solid #ccd0d4;
         max-width: 300px;
         font-family: "Somic", Arial, sans-serif;
+        box-shadow: 4px 4px 7px 0 rgba(34, 60, 80, 0.25);
+        transition: all 0.3s ease;
+    }
+    .custom-card:hover {
+        box-shadow: 4px 4px 7px 0 rgba(223, 112, 0, 0.25);
+        border-color: #df7000;
     }
     .custom-card__top {
         border-radius: 12px;
@@ -62,6 +81,7 @@
         margin-bottom: 12px;
     }
     .custom-card__info {
+        color: black;
         margin-bottom: 24px;
     }
     .custom-card__container {
@@ -86,5 +106,24 @@
     }
     .custom-card__type {
         font-size: 18px;
+    }
+    .custom-card__request-button {
+        display: block;
+        margin-top: 24px;
+        text-align: center;
+        padding: 10px;
+        border-radius: 5px;
+        border: none;
+        white-space: nowrap;
+        cursor: pointer;
+        font-size: 16px;
+        font-family: inherit;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        color: white;
+        background-color: #ff8000;
+    }
+    .custom-card__request-button:hover {
+        background: #df7000;
     }
 </style>
