@@ -1,4 +1,19 @@
 window.addEventListener('DOMContentLoaded', () => {
+    const feedbackModal = document.getElementById('rec4069882301')
+
+    window.passObjectDataInModal = function (sku, title) {
+        if (feedbackModal) {
+            const SKUInput = feedbackModal.querySelector('input[name="estate_sku"]')
+            if (SKUInput) {
+                SKUInput.value = sku
+            }
+            const titleInput = feedbackModal.querySelector('input[name="estate_title"]')
+            if (titleInput) {
+                titleInput.value = title
+            }
+        }
+    }
+
     fetch('https://store.tildaapi.com/api/getproductslist/?storepartuid=478140529053&recid=4071407101&c=1790064169845&getparts=true&getoptions=true&slice=1&size=36&flag_root=withroot')
         .then((response) => {
             response.json()
@@ -45,6 +60,7 @@ window.addEventListener('DOMContentLoaded', () => {
                                                     <div class="custom-card__type">${ chars["Тип недвижимости"] }</div>
                                                     <p>${ chars["Площадь"] } м<sup>2</sup></p>
                                                 </div>
+                                                
                                                 <div class="custom-card__city">
                                                     ${ chars["Город"] }
                                                 </div>
@@ -69,6 +85,7 @@ window.addEventListener('DOMContentLoaded', () => {
                                         </a>
                             
                                         <a
+                                            onclick="window.passObjectDataInModal('${ product.sku }', '${ product.title }')"
                                             class="custom-card__request-button"
                                             href="#real_estate_feedback"
                                         >
