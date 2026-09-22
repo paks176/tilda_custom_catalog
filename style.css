@@ -30,6 +30,9 @@
 .custom-card__info {
   color: black;
   margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 .custom-card__container {
   display: flex;
@@ -53,6 +56,11 @@
 }
 .custom-card__type {
   font-size: 18px;
+}
+.custom-card__sku {
+  color: #b5c3cd;
+  font-size: 14px;
+  align-self: flex-end;
 }
 .custom-card__request-button {
   display: block;

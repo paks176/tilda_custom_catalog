@@ -30,6 +30,9 @@
     &__info {
       color: black;
       margin-bottom: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
     }
     &__container {
       display: flex;
@@ -53,6 +56,11 @@
     }
     &__type {
       font-size: 18px;
+    }
+    &__sku {
+      color: #b5c3cd;
+      font-size: 14px;
+      align-self: flex-end;
     }
     &__request-button {
       display: block;
