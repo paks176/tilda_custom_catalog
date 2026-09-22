@@ -10,13 +10,31 @@ window.addEventListener('DOMContentLoaded', () => {
                             const composedCards = products.map((product) => {
                                 const productCard = document.createElement('div')
                                 productCard.className = 'custom-card'
+                                const rawChars = product.characteristics
+                                const chars = {}
+                                if (rawChars && rawChars.length) {
+                                    rawChars.forEach(char => {
+                                        chars[char.title] = char.value
+                                    })
+                                }
+                                const productURL = product.url.split('/').pop()
+                                let productImage
+                                if (product.gallery && product.gallery.length) {
+                                    productImage = JSON.parse(product.gallery)[0].img
+                                } else {
+                                    productImage = 'https://static.tildacdn.com/tild6339-3134-4430-b338-333965313536/logo_clean.svg'
+                                }
                                 productCard.innerHTML = `
-                                    <div class="custom-card__label">${ product.mark }</div>
-                                        <a href="/tproduct/570895560693-ofisnoe-pomeschenie-g-kazan">
+                                    <div
+                                      class="${ chars["Статус"] === 'Строится' ? 'custom-card__label custom-card__label--in-progress' : 'custom-card__label custom-card__label--ready' }"
+                                      >
+                                        ${ product.mark }
+                                      </div>
+                                        <a href="/tproduct/${ productURL }">
                                             <div class="custom-card__top">
                                                 <img
-                                                    src="https://optim.tildacdn.com/stor6332-6361-4932-b232-363131303830/-/cover/360x396/center/center/-/format/webp/3cfa2d46a4680474e26c6430f4737e70.jpg.webp"
-                                                    alt="Товар"
+                                                    src="${ productImage }"
+                                                    alt="${ product.title }"
                                                 >
                                             </div>
                             
@@ -24,29 +42,29 @@ window.addEventListener('DOMContentLoaded', () => {
                                                 class="custom-card__info"
                                             >
                                                 <div class="custom-card__flex">
-                                                    <div class="custom-card__type">Офисная</div>
-                                                    <p>240 м<sup>2</sup></p>
+                                                    <div class="custom-card__type">${ chars["Тип недвижимости"] }</div>
+                                                    <p>${ chars["Площадь"] } м<sup>2</sup></p>
                                                 </div>
                                                 <div class="custom-card__city">
-                                                    Казань
+                                                    ${ chars["Город"] }
                                                 </div>
                             
                                                 <div class="custom-card__flex">
                                                     <span>Цена:</span>
-                                                    <span class="custom-card__price">от 24 500 000 ₽</span>
+                                                    <span class="custom-card__price">от ${ chars["Город"] } ₽</span>
                                                 </div>
                             
                                                 <div class="custom-card__flex">
                                                     <span>Платеж:</span>
-                                                    <span class="custom-card__price">от 512 000 ₽</span>
+                                                    <span class="custom-card__price">от ${ chars["Ежемесячный платеж"] } ₽</span>
                                                 </div>
                             
                                                 <div class="custom-card__flex">
                                                     <span>Вернется налогами:</span>
-                                                    <span class="custom-card__price">от 512 000 ₽</span>
+                                                    <span class="custom-card__price">от ${ chars["Сумма НДС к возмещению"] } ₽</span>
                                                 </div>
                             
-                                                <span class="custom-card__sku">LT-ASK-KZN-0147</span>
+                                                <span class="custom-card__sku">${ product.sku }</span>
                                             </div>
                                         </a>
                             
@@ -60,13 +78,10 @@ window.addEventListener('DOMContentLoaded', () => {
                                 return productCard
                             })
 
-                            console.log(composedCards)
-
                             if (composedCards.length) {
-                                customCardsPlace.appendChild(...composedCards)
+                                customCardsPlace.append(...composedCards)
                             }
                         }
-                        console.log(productsResponse.products)
                     }
                 })
         })
