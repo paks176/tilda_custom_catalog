@@ -261,7 +261,9 @@
             horizontalScrollHint: 'hand'
         };
 
-        window.passObjectDataInModal = function (sku, title) {
+        window.passObjectDataInModal = function (productId) {
+            const thisProduct = window.estate_products.find(product => product.uid === Number(productId))
+
             if (feedbackModal) {
                 const SKUInput = feedbackModal.querySelector('input[name="estate_sku"]')
                 if (SKUInput) {
@@ -347,29 +349,17 @@
 
                                                 <div class="custom-card__flex underline">
                                                     <span>Цена:</span>
-                                                    <span class="custom-card__price">от ${ Number(chars["Начальная цена"]).toLocaleString('ru-RU', {
-                                                                                                                                        style: 'currency',
-                                                                                                                                        currency: 'RUB',
-                                                                                                                                        minimumFractionDigits: 0
-                                                                                                                                      }) }</span>
+                                                    <span class="custom-card__price">от ${ Number(chars["Начальная цена"]).toLocaleString('ru-RU', { style: 'currency', currency: 'RUB', minimumFractionDigits: 0 }) }</span>
                                                 </div>
 
                                                 <div class="custom-card__flex underline">
                                                     <span>Платеж:</span>
-                                                    <span class="custom-card__price">от ${ Number(chars["Ежемесячный платеж"]).toLocaleString('ru-RU', {
-    style: 'currency',
-    currency: 'RUB',
-    minimumFractionDigits: 0
-  }) }</span>
+                                                    <span class="custom-card__price">от ${ Number(chars["Ежемесячный платеж"]).toLocaleString('ru-RU', { style: 'currency', currency: 'RUB', minimumFractionDigits: 0 }) }</span>
                                                 </div>
 
                                                 <div class="custom-card__flex">
                                                     <span>Вернется налогами:</span>
-                                                    <span class="custom-card__price">от ${ Number(chars["Сумма НДС к возмещению"]).toLocaleString('ru-RU', {
-    style: 'currency',
-    currency: 'RUB',
-    minimumFractionDigits: 0
-  }) }</span>
+                                                    <span class="custom-card__price">от ${ Number(chars["Сумма НДС к возмещению"]).toLocaleString('ru-RU', { style: 'currency', currency: 'RUB', minimumFractionDigits: 0 }) }</span>
                                                 </div>
 
                                                 <span class="custom-card__sku">${ product.sku }</span>
@@ -377,7 +367,7 @@
                                         </div>
 
                                         <a
-                                            onclick="window.passObjectDataInModal('${ product.sku }', '${ product.title }')"
+                                            onclick="window.passObjectDataInModal(${ product.uid })"
                                             class="custom-card__request-button"
                                             href="#real_estate_feedback"
                                         >
