@@ -10,7 +10,21 @@
     }
 
     #rec4071407101 {
+        padding: 0 !important;
+        background: none;
+    }
+
+    .js-store-parts-select-container {
         display: none;
+    }
+    .js-store-grid-cont-preloader {
+        display: none;
+    }
+    .js-store-grid-cont {
+        display: none;
+    }
+    .js-custom-open-popup {
+        cursor: pointer
     }
 
     .custom-card {
@@ -46,9 +60,10 @@
         gap: 12px;
     }
     .custom-card__container {
-        display: flex;
-        gap: 32px;
-        flex-wrap: wrap;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 48px 32px;
+        justify-items: center;
     }
     .custom-card__flex {
         display: flex;
@@ -74,18 +89,46 @@
     }
     .custom-card__type {
         font-size: 18px;
+        font-weight: 500;
+        padding: 6px 12px;
+        border-radius: 25px;
+        background-color: darkslateblue;
+        color: white;
+    }
+    .custom-card__area {
+        font-size: 18px;
+        font-weight: 500;
+        padding: 6px 12px;
+        border-radius: 25px;
+        background-color: royalblue;
+        color: white;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        line-height: 20px;
+    }
+    .custom-card__city {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 18px;
+        font-weight: 500;
+    }
+    .custom-card__price {
+        font-style: italic;
     }
     .custom-card__sku {
         color: #b5c3cd;
         font-size: 14px;
         align-self: flex-end;
+        margin-top: 12px;
     }
     .custom-card__request-button {
         display: block;
         margin-top: 24px;
         text-align: center;
         padding: 10px;
-        border-radius: 5px;
+        border-radius: 12px;
         border: none;
         white-space: nowrap;
         cursor: pointer;
@@ -99,11 +142,124 @@
     .custom-card__request-button:hover {
         background: #df7000;
     }
+    .underline {
+        border-bottom: 1px solid #ccd0d4;
+        padding-bottom: 8px;
+    }
 </style>
 
 <script>
     window.addEventListener('DOMContentLoaded', () => {
         const feedbackModal = document.getElementById('rec4069882301')
+
+        var prodcard_optsObj = {
+            blockId: '',
+            hasWrap: 'true',
+            txtPad: '',
+            bgColor: '',
+            borderRadius: '',
+            shadow: '',
+            shadowSize: '',
+            shadowOpacity: '',
+            shadowHover: '',
+            shadowSizeHover: '',
+            shadowOpacityHover: '',
+            shadowShiftyHover: '',
+            btnTitle1: '',
+            btnLink1: 'popup',
+            btnTitle2: '',
+            btnLink2: 'popup',
+            showOpts: false,
+            style: '',
+            hasImg: true,
+            hasDescr: true,
+            hasSeparator: true
+        };
+        var price_optsObj = {color: '', colorOld: '', position: '', priceRange: ''};
+        var popup_optsObj = {
+            popupContainer: '',
+            columns: '6',
+            columns2: '6',
+            isVertical: '',
+            align: '',
+            btnTitle: 'Запросить объект',
+            closeText: 'More products',
+            iconColor: '#000000',
+            containerBgColor: '#ffffff',
+            overlayBgColor: '#ffffff',
+            overlayBgColorRgba: 'rgba(255,255,255,1)',
+            popupStat: '',
+            tabsPosition: '',
+            fixedButton: false,
+            mobileGalleryStyle: ''
+        };
+        var slider_optsObj = {
+            anim_speed: '',
+            videoPlayerIconColor: '',
+            cycle: '',
+            controls: 'arrowsthumbs',
+            bgcolor: '#ebebeb'
+        };
+        var slider_dotsOptsObj = {size: '', bgcolor: '', bordersize: '', bgcoloractive: ''};
+        var slider_slidesOptsObj = {zoomable: true, bgsize: 'cover', ratio: '1'};
+        var typography_optsObj = {descrColor: '', titleColor: '', optionsColor: ''};
+        var default_sort = {default: null, in_stock: false};
+
+        const popupOptions =  {
+            recid: '4071407101',
+            storepart: '478140529053',
+            previewmode: 'yes',
+            prodCard: prodcard_optsObj,
+            popup_opts: popup_optsObj,
+            defaultSort: default_sort,
+            galleryStyle: '',
+            slider_opts: slider_optsObj,
+            slider_dotsOpts: slider_dotsOptsObj,
+            slider_slidesOpts: slider_slidesOptsObj,
+            typo: typography_optsObj,
+            price: price_optsObj,
+            blocksInRow: '3',
+            colClass: 't-col t-col_4',
+            sidebar: false,
+            colWidth: '360',
+            colClassFullWidth: 't-col t-col_12',
+            imageHover: true,
+            imageHeight: '',
+            imageWidth: '',
+            imageRatio: '1',
+            imageRatioClass: '',
+            align: 'left',
+            vindent: '',
+            isHorizOnMob: false,
+            itemsAnim: '',
+            hasOriginalAspectRatio: false,
+            size: 36,
+            markColor: '#ffffff',
+            markBgColor: '#ff4a4a',
+            currencySide: 'r',
+            currencyTxt: 'р.',
+            currencySeparator: ',',
+            currencyDecimal: '',
+            btnSize: 'xs',
+            buttonRadius: '5px',
+            buttonBgColor: '#000000',
+            isFlexCols: '',
+            hideStoreParts: false,
+            verticalAlignButtons: false,
+            hideFilters: false,
+            titleRelevants: '',
+            showRelevants: '',
+            showPagination: '',
+            tabs: '',
+            relevants_slider: false,
+            relevants_quantity: '4',
+            sliderthumbsside: '',
+            showStoreBtnQuantity: '',
+            verticalAlign: '',
+            rightColumnWidth: '',
+            isTitleClip: false,
+            horizontalScrollHint: 'hand'
+        };
 
         window.passObjectDataInModal = function (sku, title) {
             if (feedbackModal) {
@@ -118,15 +274,24 @@
             }
         }
 
+        window.openPopUp = function (productId) {
+            const thisProduct = window.estate_products.find(product => product.uid === Number(productId))
+            if (thisProduct && window.t_store_openProductPopup) {
+                window.t_store_openProductPopup('4071407101', popupOptions, thisProduct, false, false, false);
+            }
+        }
+
+        window.estate_products = []
+
         fetch('https://store.tildaapi.com/api/getproductslist/?storepartuid=478140529053&recid=4071407101&c=1790064169845&getparts=true&getoptions=true&slice=1&size=36&flag_root=withroot')
             .then((response) => {
                 response.json()
                     .then((productsResponse) => {
                         if (productsResponse.products && productsResponse.products.length) {
-                            const products = productsResponse.products
+                            window.estate_products = productsResponse.products
                             const customCardsPlace = document.querySelector('.custom-card__container')
                             if (customCardsPlace) {
-                                const composedCards = products.map((product) => {
+                                const composedCards = window.estate_products.map((product) => {
                                     const productCard = document.createElement('div')
                                     productCard.className = 'custom-card'
                                     const rawChars = product.characteristics
@@ -136,7 +301,6 @@
                                             chars[char.title] = char.value
                                         })
                                     }
-                                    const productURL = product.url.split('/').pop()
                                     let productImage
                                     if (product.gallery && product.gallery.length) {
                                         productImage = JSON.parse(product.gallery)[0].img
@@ -149,7 +313,10 @@
                                       >
                                         ${ product.mark }
                                       </div>
-                                        <a href="/tproduct/${ productURL }">
+                                        <div
+                                        class="js-custom-open-popup"
+                                        onclick="window.openPopUp(${ product.uid })"
+                                        >
                                             <div class="custom-card__top">
                                                 <img
                                                     src="${ productImage }"
@@ -162,30 +329,52 @@
                                             >
                                                 <div class="custom-card__flex">
                                                     <div class="custom-card__type">${ chars["Тип недвижимости"] }</div>
-                                                    <p>${ chars["Площадь"] } м<sup>2</sup></p>
+                                                    <div class="custom-card__area">
+                                                      <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 32 32">
+                                                          <path d="M0 0h32v32H0z" fill="none" />
+                                                          <path fill="white" d="M27 22.142V9.858A3.992 3.992 0 1 0 22.142 5H9.858A3.992 3.992 0 1 0 5 9.858v12.284A3.992 3.992 0 1 0 9.858 27h12.284A3.992 3.992 0 1 0 27 22.142M26 4a2 2 0 1 1-2 2a2 2 0 0 1 2-2M4 6a2 2 0 1 1 2 2a2 2 0 0 1-2-2m2 22a2 2 0 1 1 2-2a2 2 0 0 1-2 2m16.142-3H9.858A4 4 0 0 0 7 22.142V9.858A4 4 0 0 0 9.858 7h12.284A4 4 0 0 0 25 9.858v12.284A3.99 3.99 0 0 0 22.142 25M26 28a2 2 0 1 1 2-2a2.003 2.003 0 0 1-2 2" />
+                                                      </svg>
+                                                      ${ chars["Площадь"] } м<sup>2</sup>
+                                                    </div>
                                                 </div>
                                                 <div class="custom-card__city">
-                                                    ${ chars["Город"] }
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
+                                                      <path d="M0 0h16v16H0z" fill="none" />
+                                                      <path fill="black" d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6a3 3 0 0 1 0 6" />
+                                                    </svg>
+                                                    <span>${ chars["Город"] }</span>
                                                 </div>
 
-                                                <div class="custom-card__flex">
+                                                <div class="custom-card__flex underline">
                                                     <span>Цена:</span>
-                                                    <span class="custom-card__price">от ${ chars["Город"] } ₽</span>
+                                                    <span class="custom-card__price">от ${ Number(chars["Начальная цена"]).toLocaleString('ru-RU', {
+                                                                                                                                        style: 'currency',
+                                                                                                                                        currency: 'RUB',
+                                                                                                                                        minimumFractionDigits: 0
+                                                                                                                                      }) }</span>
                                                 </div>
 
-                                                <div class="custom-card__flex">
+                                                <div class="custom-card__flex underline">
                                                     <span>Платеж:</span>
-                                                    <span class="custom-card__price">от ${ chars["Ежемесячный платеж"] } ₽</span>
+                                                    <span class="custom-card__price">от ${ Number(chars["Ежемесячный платеж"]).toLocaleString('ru-RU', {
+    style: 'currency',
+    currency: 'RUB',
+    minimumFractionDigits: 0
+  }) }</span>
                                                 </div>
 
                                                 <div class="custom-card__flex">
                                                     <span>Вернется налогами:</span>
-                                                    <span class="custom-card__price">от ${ chars["Сумма НДС к возмещению"] } ₽</span>
+                                                    <span class="custom-card__price">от ${ Number(chars["Сумма НДС к возмещению"]).toLocaleString('ru-RU', {
+    style: 'currency',
+    currency: 'RUB',
+    minimumFractionDigits: 0
+  }) }</span>
                                                 </div>
 
                                                 <span class="custom-card__sku">${ product.sku }</span>
                                             </div>
-                                        </a>
+                                        </div>
 
                                         <a
                                             onclick="window.passObjectDataInModal('${ product.sku }', '${ product.title }')"

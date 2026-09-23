@@ -39,9 +39,10 @@
   gap: 12px;
 }
 .custom-card__container {
-  display: flex;
-  gap: 32px;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 48px 32px;
+  justify-items: center;
 }
 .custom-card__flex {
   display: flex;

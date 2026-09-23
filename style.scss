@@ -39,9 +39,10 @@
       gap: 12px;
     }
     &__container {
-      display: flex;
-      gap: 32px;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 48px 32px;
+      justify-items: center;
     }
     &__flex {
       display: flex;
