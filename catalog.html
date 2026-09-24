@@ -7,6 +7,8 @@
 <style>
     #custom-catalog {
         padding: 80px 0;
+        opacity: 0;
+        transition: opacity 0.3s ease;
     }
 
     #rec4071407101 {
@@ -34,6 +36,7 @@
         background-color: white;
         border: 1px solid #ccd0d4;
         max-width: 300px;
+        width: 100%;
         font-family: "Somic", Arial, sans-serif;
         box-shadow: 4px 4px 7px 0 rgba(34, 60, 80, 0.25);
         transition: all 0.3s ease;
@@ -46,6 +49,7 @@
         border-radius: 12px;
         overflow: hidden;
         aspect-ratio: 4/3;
+        background-color: lightgray;
         margin-bottom: 12px;
     }
     .custom-card__top img {
@@ -94,6 +98,7 @@
         border-radius: 25px;
         background-color: darkslateblue;
         color: white;
+        line-height: 23px;
     }
     .custom-card__area {
         font-size: 18px;
@@ -105,7 +110,7 @@
         display: flex;
         align-items: center;
         gap: 8px;
-        line-height: 20px;
+        line-height: 23px;
     }
     .custom-card__city {
         display: flex;
@@ -146,12 +151,30 @@
         border-bottom: 1px solid #ccd0d4;
         padding-bottom: 8px;
     }
+    .feedback-card {
+        margin-bottom: 24px;
+        font-family: "Somic", Arial, sans-serif;
+        padding-bottom: 24px;
+    }
+    .feedback-card img {
+        max-width: 100%;
+        width: 100%;
+        height: auto;
+        border-radius: 16px;
+        margin-bottom: 12px;
+    }
 </style>
 
 <script>
     window.addEventListener('DOMContentLoaded', () => {
+        const customCatalogPlace = document.getElementById('custom-catalog')
         const feedbackModal = document.getElementById('rec4069882301')
-
+        const feedbackModalObjectPlace = feedbackModal.querySelector('.t702__wrapper')
+        let feedbackModalObjectContent
+        if (feedbackModalObjectPlace) {
+            feedbackModalObjectPlace.insertAdjacentHTML('afterbegin', `<div class="feedback-card underline"></div>`)
+            feedbackModalObjectContent = feedbackModalObjectPlace.querySelector('.feedback-card')
+        }
         var prodcard_optsObj = {
             blockId: '',
             hasWrap: 'true',
@@ -263,16 +286,53 @@
 
         window.passObjectDataInModal = function (productId) {
             const thisProduct = window.estate_products.find(product => product.uid === Number(productId))
-
             if (feedbackModal) {
                 const SKUInput = feedbackModal.querySelector('input[name="estate_sku"]')
                 if (SKUInput) {
-                    SKUInput.value = sku
+                    SKUInput.value = thisProduct.sku
                 }
                 const titleInput = feedbackModal.querySelector('input[name="estate_title"]')
                 if (titleInput) {
-                    titleInput.value = title
+                    titleInput.value = thisProduct.title
                 }
+                let productImage
+
+                if (thisProduct.gallery && thisProduct.gallery.length) {
+                    productImage = JSON.parse(thisProduct.gallery)[0].img
+                } else {
+                    productImage = 'https://static.tildacdn.com/tild6339-3134-4430-b338-333965313536/logo_clean.svg'
+                }
+
+                const chars = {}
+                const rawChars = thisProduct.characteristics
+                if (rawChars && rawChars.length) {
+                    rawChars.forEach(char => {
+                        chars[char.title] = char.value
+                    })
+                }
+
+                feedbackModalObjectContent.innerHTML = ''
+
+                feedbackModalObjectContent.insertAdjacentHTML('afterbegin', `
+                      <img src="${productImage}" alt="${thisProduct.title}">
+                      <div class="custom-card__flex">
+                          <div class="custom-card__city">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
+                                  <path d="M0 0h16v16H0z" fill="none" />
+                                  <path fill="black" d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6a3 3 0 0 1 0 6" />
+                                </svg>
+                              <span>${chars["Город"]}</span>
+                            </div>
+                        <div class="custom-card__type">${chars["Тип недвижимости"]}</div>
+                        <div class="custom-card__area">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 32 32">
+                              <path d="M0 0h32v32H0z" fill="none" />
+                              <path fill="white" d="M27 22.142V9.858A3.992 3.992 0 1 0 22.142 5H9.858A3.992 3.992 0 1 0 5 9.858v12.284A3.992 3.992 0 1 0 9.858 27h12.284A3.992 3.992 0 1 0 27 22.142M26 4a2 2 0 1 1-2 2a2 2 0 0 1 2-2M4 6a2 2 0 1 1 2 2a2 2 0 0 1-2-2m2 22a2 2 0 1 1 2-2a2 2 0 0 1-2 2m16.142-3H9.858A4 4 0 0 0 7 22.142V9.858A4 4 0 0 0 9.858 7h12.284A4 4 0 0 0 25 9.858v12.284A3.99 3.99 0 0 0 22.142 25M26 28a2 2 0 1 1 2-2a2.003 2.003 0 0 1-2 2" />
+                            </svg>
+                            ${chars["Площадь"]} м<sup>2</sup>
+                          </div>
+                      </div>
+                `)
             }
         }
 
@@ -379,10 +439,13 @@
 
                                 if (composedCards.length) {
                                     customCardsPlace.append(...composedCards)
+                                    customCatalogPlace.style.opacity = '1'
                                 }
                             }
                         }
-                    })
+                    }).catch((error) => {
+                        console.log('Ошибка получения позиций недвижимости: ' + error)
+                })
             })
     })
 </script>
