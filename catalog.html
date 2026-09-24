@@ -175,6 +175,9 @@
             feedbackModalObjectPlace.insertAdjacentHTML('afterbegin', `<div class="feedback-card underline"></div>`)
             feedbackModalObjectContent = feedbackModalObjectPlace.querySelector('.feedback-card')
         }
+        const infoModal = document.querySelector('.t778')
+        let infoModalButton
+        let closeInfoModalButton
         var prodcard_optsObj = {
             blockId: '',
             hasWrap: 'true',
@@ -337,8 +340,19 @@
         }
 
         window.openPopUp = function (productId) {
+            if (!infoModalButton) {
+                infoModalButton = infoModal.querySelector('.t-store__prod-popup__btn')
+                infoModalButton.href = '#real_estate_feedback'
+            }
+            if (!closeInfoModalButton) {
+                closeInfoModalButton = infoModal.querySelector('.t-popup__close')
+            }
             const thisProduct = window.estate_products.find(product => product.uid === Number(productId))
             if (thisProduct && window.t_store_openProductPopup) {
+                infoModalButton.addEventListener('click', () => {
+                    closeInfoModalButton.click()
+                    window.passObjectDataInModal(thisProduct.uid)
+                })
                 window.t_store_openProductPopup('4071407101', popupOptions, thisProduct, false, false, false);
             }
         }
