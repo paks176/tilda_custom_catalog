@@ -1,9 +1,30 @@
+$grayText: #777;
+$grayBorder: #ccd0d4;
+$mainOrange: #ff8000;
+$mainOrangeHover: #df7000;
+
 #custom-catalog {
   padding: 80px 0;
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 #rec4071407101 {
+  padding: 0 !important;
+  background: none;
+}
+
+.js-store-parts-select-container {
   display: none;
+}
+.js-store-grid-cont-preloader {
+  display: none;
+}
+.js-store-grid-cont {
+  display: none;
+}
+.js-custom-open-popup {
+  cursor: pointer
 }
 
 .custom {
@@ -12,19 +33,21 @@
     padding: 12px;
     border-radius: 12px;
     background-color: white;
-    border: 1px solid #ccd0d4;
+    border: 1px solid $grayBorder;
     max-width: 300px;
-    font-family: 'Somic', Arial, sans-serif;
+    width: 100%;
+    font-family: "Somic", Arial, sans-serif;
     box-shadow: 4px 4px 7px 0 rgba(34, 60, 80, 0.25);
     transition: all 0.3s ease;
     &:hover {
       box-shadow: 4px 4px 7px 0 rgba(223, 112, 0, 0.25);
-      border-color: #df7000;
+      border-color: $mainOrangeHover;
     }
     &__top {
       border-radius: 12px;
       overflow: hidden;
-      aspect-ratio: 4 / 3;
+      aspect-ratio: 4/3;
+      background-color: lightgray;
       margin-bottom: 12px;
       img {
         object-fit: cover;
@@ -68,12 +91,42 @@
     }
     &__type {
       font-size: 18px;
+      font-weight: 500;
+      padding: 6px 12px;
+      border-radius: 25px;
+      background-color: darkslateblue;
+      color: white;
+      line-height: 23px;
     }
     &__sku {
-      color: #b5c3cd;
+      color: $grayText;
       font-size: 14px;
       align-self: flex-end;
+      margin-top: 12px;
     }
+    &__area {
+      font-size: 18px;
+      font-weight: 500;
+      padding: 6px 12px;
+      border-radius: 25px;
+      background-color: royalblue;
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      line-height: 23px;
+    }
+    &__city {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 18px;
+      font-weight: 500;
+    }
+    &__price {
+      font-style: italic;
+    }
+
     &__request-button {
       display: block;
       margin-top: 24px;
@@ -88,10 +141,103 @@
       font-weight: 600;
       transition: all 0.3s ease;
       color: white;
-      background-color: #ff8000;
+      background-color: $mainOrange;
       &:hover {
-        background: #df7000;
+        background: $mainOrangeHover;
+      }
+    }
+
+  }
+}
+
+.underline {
+  border-bottom: 1px solid $grayBorder;
+  padding-bottom: 8px;
+}
+
+.feedback-card {
+  margin-bottom: 24px;
+  font-family: "Somic", Arial, sans-serif;
+  padding-bottom: 24px;
+  img {
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+    border-radius: 16px;
+    margin-bottom: 12px;
+  }
+}
+
+.t702 .t-submit {
+  border-radius: 12px !important;
+  background-color: $mainOrange !important;
+}
+.t702 .t-submit:hover {
+  background-color: $mainOrangeHover !important;
+}
+
+/* стили для модалки с подробной инфой */
+.t-store__prod-popup__btn {
+  border-radius: 12px !important;
+  background-color: $mainOrange !important;
+}
+
+.t-store__prod-popup__btn:hover {
+  background-color: $mainOrangeHover !important;
+}
+
+.info-modal {
+  &__top {
+    margin-bottom: 32px;
+  }
+  .t-store__prod-popup__sku {
+    margin-top: 12px;
+  }
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    gap: 24px;
+    margin-bottom: 32px;
+    &__name {
+      font-size: 12px;
+      margin-bottom: 4px;
+    }
+    &__value {
+      font-size: 18px;
+      font-weight: 600;
+      span {
+        font-size: 12px;
+        color: $grayText;
       }
     }
   }
+  &__table {
+    padding: 24px;
+    &__header {
+      font-size: 14px;
+      color: $grayText;
+      padding-bottom: 12px;
+      border-bottom: 1px solid $mainOrange;
+      width: min-content;
+      margin-bottom: 32px;
+    }
+    &__item {
+      display: flex;
+      justify-content: space-between;
+      span {
+        color: $grayText;
+      }
+    }
+  }
+}
+
+// скрываем старые блоки подробной модалки (при удалении тильда кидает ошибку)
+.t-store__prod-popup__title-wrapper,
+.js-store-price-wrapper,
+.js-product-controls-wrapper,
+.t-store__prod-popup__links-wrapper,
+.t-store__prod-popup__btn-wrapper,
+.js-store-prod-text {
+  display: none;
 }
