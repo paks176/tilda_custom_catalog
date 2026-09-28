@@ -100,7 +100,6 @@
 .custom-card__sku {
   color: #777;
   font-size: 14px;
-  align-self: flex-end;
   margin-top: 12px;
 }
 .custom-card__area {
@@ -212,7 +211,7 @@
   font-weight: 600;
 }
 .info-modal__grid__value span {
-  font-size: 12px;
+  font-size: 14px;
   color: #777;
 }
 .info-modal__table {

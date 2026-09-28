@@ -101,7 +101,6 @@ $mainOrangeHover: #df7000;
     &__sku {
       color: $grayText;
       font-size: 14px;
-      align-self: flex-end;
       margin-top: 12px;
     }
     &__area {
@@ -213,7 +212,7 @@ $mainOrangeHover: #df7000;
       font-size: 18px;
       font-weight: 600;
       span {
-        font-size: 12px;
+        font-size: 14px;
         color: $grayText;
       }
     }
