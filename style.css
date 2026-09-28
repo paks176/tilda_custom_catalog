@@ -150,6 +150,10 @@
   padding-bottom: 8px;
 }
 
+.orange {
+  color: #ff8000 !important;
+}
+
 .feedback-card {
   margin-bottom: 24px;
   font-family: "Somic", Arial, sans-serif;
@@ -182,6 +186,9 @@
   background-color: #df7000 !important;
 }
 
+.info-modal {
+  font-family: "Somic", Arial, sans-serif;
+}
 .info-modal__top {
   margin-bottom: 32px;
 }
@@ -194,10 +201,11 @@
   width: 100%;
   gap: 24px;
   margin-bottom: 32px;
+  margin-top: 24px;
 }
 .info-modal__grid__name {
-  font-size: 12px;
-  margin-bottom: 4px;
+  font-size: 14px;
+  color: #777;
 }
 .info-modal__grid__value {
   font-size: 18px;
@@ -208,7 +216,7 @@
   color: #777;
 }
 .info-modal__table {
-  padding: 24px;
+  margin-top: 32px;
 }
 .info-modal__table__header {
   font-size: 14px;
@@ -216,14 +224,16 @@
   padding-bottom: 12px;
   border-bottom: 1px solid #ff8000;
   width: min-content;
-  margin-bottom: 32px;
+  white-space: nowrap;
+  margin-bottom: 12px;
 }
 .info-modal__table__item {
   display: flex;
   justify-content: space-between;
+  padding: 18px 0;
 }
 .info-modal__table__item span {
-  color: #777;
+  color: #777 !important;
 }
 
 .t-store__prod-popup__title-wrapper,

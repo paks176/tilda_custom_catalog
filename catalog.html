@@ -156,6 +156,10 @@
         padding-bottom: 8px;
     }
 
+    .orange {
+        color: #ff8000 !important;
+    }
+
     .feedback-card {
         margin-bottom: 24px;
         font-family: "Somic", Arial, sans-serif;
@@ -188,6 +192,9 @@
         background-color: #df7000 !important;
     }
 
+    .info-modal {
+        font-family: "Somic", Arial, sans-serif;
+    }
     .info-modal__top {
         margin-bottom: 32px;
     }
@@ -200,10 +207,11 @@
         width: 100%;
         gap: 24px;
         margin-bottom: 32px;
+        margin-top: 24px;
     }
     .info-modal__grid__name {
-        font-size: 12px;
-        margin-bottom: 4px;
+        font-size: 14px;
+        color: #777;
     }
     .info-modal__grid__value {
         font-size: 18px;
@@ -214,7 +222,7 @@
         color: #777;
     }
     .info-modal__table {
-        padding: 24px;
+        margin-top: 32px;
     }
     .info-modal__table__header {
         font-size: 14px;
@@ -222,14 +230,16 @@
         padding-bottom: 12px;
         border-bottom: 1px solid #ff8000;
         width: min-content;
-        margin-bottom: 32px;
+        white-space: nowrap;
+        margin-bottom: 12px;
     }
     .info-modal__table__item {
         display: flex;
         justify-content: space-between;
+        padding: 18px 0;
     }
     .info-modal__table__item span {
-        color: #777;
+        color: #777 !important;
     }
 
     .t-store__prod-popup__title-wrapper,
@@ -240,9 +250,6 @@
     .js-store-prod-text {
         display: none;
     }
-
-    /*# sourceMappingURL=style.css.map */
-
 </style>
 
 <script>
@@ -263,6 +270,18 @@
         let infoModalBody
         let infoModalBodyContentPlace
         let closeInfoModalButton
+        const numberFields = [
+            'Начальная цена',
+            'Площадь',
+            'Ежемесячный платеж',
+            'Сумма НДС к возмещению',
+            'Экономия по налогу на прибыль',
+            'Общая сумма затрат с учётом выгоды по налогам',
+            'Сумма договора лизинга',
+            'Сумма договора лизинга'
+        ]
+
+        // Tilda modals options
         var prodcard_optsObj = {
             blockId: '',
             hasWrap: 'true',
@@ -315,7 +334,6 @@
         var slider_slidesOptsObj = {zoomable: true, bgsize: 'cover', ratio: '1'};
         var typography_optsObj = {descrColor: '', titleColor: '', optionsColor: ''};
         var default_sort = {default: null, in_stock: false};
-
         const popupOptions =  {
             recid: '4071407101',
             storepart: '478140529053',
@@ -371,6 +389,7 @@
             isTitleClip: false,
             horizontalScrollHint: 'hand'
         };
+        //--Tilda modals options
 
         window.putProductInfo = function (product) {
             if (infoModalBodyContentPlace) {
@@ -396,14 +415,14 @@
                                ${ product.chars["Начальная цена"] ? `
                                     <div class="info-modal__grid__item">
                                       <p class="info-modal__grid__name">Стоимость</p>
-                                      <p class="info-modal__grid__value">от ${ product.chars["Начальная цена"] } <span>₽</span></p>
+                                      <p class="info-modal__grid__value">от ${ product.chars["Начальная цена"].toLocaleString('ru-RU', { minimumFractionDigits: 0 }) } <span>₽</span></p>
                                     </div>`
                                 : '' }
 
                                ${ product.chars["Ежемесячный платеж"] ? `
                                     <div class="info-modal__grid__item">
                                       <p class="info-modal__grid__name">Платеж в месяц</p>
-                                      <p class="info-modal__grid__value">от ${ product.chars["Ежемесячный платеж"] } <span>₽</span></p>
+                                      <p class="info-modal__grid__value orange">от ${ product.chars["Ежемесячный платеж"].toLocaleString('ru-RU', { minimumFractionDigits: 0 }) } <span>₽</span></p>
                                     </div>`
                                 : '' }
 
@@ -427,12 +446,12 @@
                               <div class="info-modal__talbe__wrapper">
                                   <div class="info-modal__table__item underline">
                                     <span>Авансовый платеж</span>
-                                    <b>от 10%</b>
+                                    <b class="orange">от 10%</b>
                                   </div>
 
                                   <div class="info-modal__table__item underline">
                                     <span>Сумма аванса</span>
-                                    <b>от ${ Math.floor(Number(product.chars["Начальная цена"]) * 0.1) } ₽</b>
+                                    <b>от ${ Math.floor(Number(product.chars["Начальная цена"]) * 0.1).toLocaleString('ru-RU', { minimumFractionDigits: 0 }) } ₽</b>
                                   </div>
 
                                   <div class="info-modal__table__item underline">
@@ -442,7 +461,7 @@
 
                                   <div class="info-modal__table__item underline">
                                     <span>Ежемес. платеж</span>
-                                    <b>от ${ product.chars["Ежемесячный платеж"] } ₽</b>
+                                    <b class="orange">от ${ product.chars["Ежемесячный платеж"].toLocaleString('ru-RU', { minimumFractionDigits: 0 }) } ₽</b>
                                   </div>
 
                                   ${ product.chars["Сумма НДС к возмещению"] ? `
@@ -554,10 +573,20 @@
 
                                 if (product.characteristics && product.characteristics.length) {
                                     product.characteristics.forEach(char => {
-                                        product.chars[char.title] = char.value
+                                        let charValue
+                                        if (numberFields.includes(char.title)) {
+                                            if (char.value && char.value !== '0') {
+                                                const numberValue = parseInt(char.value.replaceAll(/\s+/g, ''))
+                                                if (!isNaN(numberValue)) {
+                                                    charValue = numberValue
+                                                } else charValue = 0
+                                            } else charValue = 0
+                                        } else charValue = char.value
+                                        product.chars[char.title] = charValue
                                     })
                                 }
                             })
+
                             const customCardsPlace = document.querySelector('.custom-card__container')
                             if (customCardsPlace) {
                                 const composedCards = window.estate_products.map((product) => {
@@ -609,17 +638,17 @@
 
                                                 <div class="custom-card__flex underline">
                                                     <span>Цена:</span>
-                                                    <span class="custom-card__price">от ${ Number(product.chars["Начальная цена"]).toLocaleString('ru-RU', { style: 'currency', currency: 'RUB', minimumFractionDigits: 0 }) }</span>
+                                                    <span class="custom-card__price">от ${ product.chars["Начальная цена"].toLocaleString('ru-RU', { style: 'currency', currency: 'RUB', minimumFractionDigits: 0 }) }</span>
                                                 </div>
 
                                                 <div class="custom-card__flex underline">
                                                     <span>Платеж:</span>
-                                                    <span class="custom-card__price">от ${ Number(product.chars["Ежемесячный платеж"]).toLocaleString('ru-RU', { style: 'currency', currency: 'RUB', minimumFractionDigits: 0 }) }</span>
+                                                    <span class="custom-card__price">от ${ product.chars["Ежемесячный платеж"].toLocaleString('ru-RU', { style: 'currency', currency: 'RUB', minimumFractionDigits: 0 }) }</span>
                                                 </div>
 
                                                 <div class="custom-card__flex">
                                                     <span>Вернется налогами:</span>
-                                                    <span class="custom-card__price">от ${ Number(product.chars["Сумма НДС к возмещению"]).toLocaleString('ru-RU', { style: 'currency', currency: 'RUB', minimumFractionDigits: 0 }) }</span>
+                                                    <span class="custom-card__price">от ${ product.chars["Сумма НДС к возмещению"].toLocaleString('ru-RU', { style: 'currency', currency: 'RUB', minimumFractionDigits: 0 }) }</span>
                                                 </div>
 
                                                 <span class="custom-card__sku">${ product.uid }</span>
