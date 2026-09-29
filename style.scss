@@ -28,6 +28,20 @@ $mainOrangeHover: #df7000;
 }
 
 .custom {
+  &-catalog__more {
+    padding: 64px 0 48px 0;
+
+    button {
+      margin: 0 auto;
+      min-width: 200px;
+      min-height: 57px;
+      font-size: 20px;
+      svg {
+        width: 32px;
+        height: 32px;
+      }
+    }
+  }
   &-card {
     position: relative;
     padding: 12px;
@@ -108,7 +122,7 @@ $mainOrangeHover: #df7000;
       font-weight: 500;
       padding: 6px 12px;
       border-radius: 25px;
-      background-color: royalblue;
+      background-color: $grayText;
       color: white;
       display: flex;
       align-items: center;
@@ -136,16 +150,19 @@ $mainOrangeHover: #df7000;
       white-space: nowrap;
       cursor: pointer;
       font-size: 16px;
-      font-family: inherit;
       font-weight: 600;
       transition: all 0.3s ease;
       color: white;
       background-color: $mainOrange;
+      font-family: "Somic", Arial, sans-serif;
       &:hover {
         background: $mainOrangeHover;
       }
+      &[disabled='true'] {
+        cursor: not-allowed;
+        background-color: $mainOrangeHover;
+      }
     }
-
   }
 }
 

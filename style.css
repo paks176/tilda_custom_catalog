@@ -26,6 +26,19 @@
   cursor: pointer;
 }
 
+.custom-catalog__more {
+  padding: 64px 0 48px 0;
+}
+.custom-catalog__more button {
+  margin: 0 auto;
+  min-width: 200px;
+  min-height: 57px;
+  font-size: 20px;
+}
+.custom-catalog__more button svg {
+  width: 32px;
+  height: 32px;
+}
 .custom-card {
   position: relative;
   padding: 12px;
@@ -107,7 +120,7 @@
   font-weight: 500;
   padding: 6px 12px;
   border-radius: 25px;
-  background-color: royalblue;
+  background-color: #777;
   color: white;
   display: flex;
   align-items: center;
@@ -134,14 +147,18 @@
   white-space: nowrap;
   cursor: pointer;
   font-size: 16px;
-  font-family: inherit;
   font-weight: 600;
   transition: all 0.3s ease;
   color: white;
   background-color: #ff8000;
+  font-family: "Somic", Arial, sans-serif;
 }
 .custom-card__request-button:hover {
   background: #df7000;
+}
+.custom-card__request-button[disabled=true] {
+  cursor: not-allowed;
+  background-color: #df7000;
 }
 
 .underline {
