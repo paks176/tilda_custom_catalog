@@ -153,6 +153,10 @@
   color: #ff8000 !important;
 }
 
+.gray {
+  color: #777;
+}
+
 .feedback-card {
   margin-bottom: 24px;
   font-family: "Somic", Arial, sans-serif;

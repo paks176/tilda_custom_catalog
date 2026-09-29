@@ -159,6 +159,10 @@
         color: #ff8000 !important;
     }
 
+    .gray {
+        color: #777;
+    }
+
     .feedback-card {
         margin-bottom: 24px;
         font-family: "Somic", Arial, sans-serif;
@@ -249,6 +253,9 @@
     .js-store-prod-text {
         display: none;
     }
+
+    /*# sourceMappingURL=style.css.map */
+
 </style>
 
 <script>
@@ -393,7 +400,7 @@
         window.putProductInfo = function (product) {
             if (infoModalBodyContentPlace) {
                 const title = product.title || ('Объект недвижимости ' + product.chars['Город'] + ', ' + 'Тип: ' + product.chars['Тип недвижимости'] + ', ' + 'Статус: ' + product.chars['Статус'])
-
+                console.log(product)
                 infoModalBodyContentPlace.innerHTML = `
                     <div class="info-modal">
                         <div class="info-modal__top">
@@ -404,26 +411,35 @@
                            ${ product.descr ? `<div class="t-store__prod-popup__sku"> ${ product.descr } </div>` : '' }
 
                            <div class="info-modal__grid">
-                               ${ product.chars["Площадь"] ? `
-                                    <div class="info-modal__grid__item">
-                                      <p class="info-modal__grid__name">Площадь</p>
-                                      <p class="info-modal__grid__value">${ product.chars["Площадь"] } <span>м<sup>2</sup></span></p>
-                                    </div>`
-                                : '' }
+                              <div class="info-modal__grid__item">
+                                  <p class="info-modal__grid__name">Площадь</p>
+                                  <p class="info-modal__grid__value">
+                                      ${ product.chars["Площадь"] ?
+                                            ` ${product.chars["Площадь"]} <span>м<sup>2</sup></span>` :
+                                            '<p class="gray">Не указана</p>'
+                                        }
+                                  </p>
+                              </div>
 
-                               ${ product.chars["Начальная цена"] ? `
-                                    <div class="info-modal__grid__item">
-                                      <p class="info-modal__grid__name">Стоимость</p>
-                                      <p class="info-modal__grid__value">от ${ product.chars["Начальная цена"].toLocaleString('ru-RU', { minimumFractionDigits: 0 }) } <span>₽</span></p>
-                                    </div>`
-                                : '' }
+                              <div class="info-modal__grid__item">
+                                  <p class="info-modal__grid__name">Стоимость</p>
+                                  <p class="info-modal__grid__value">
+                                        ${ product.chars["Начальная цена"] ?
+                                            `от ${ product.chars["Начальная цена"].toLocaleString('ru-RU', { minimumFractionDigits: 0 }) } <span>₽</span>` :
+                                            '<p class="gray">Не указана</p>'
+                                        }
+                                  </p>
+                              </div>
 
-                               ${ product.chars["Ежемесячный платеж"] ? `
-                                    <div class="info-modal__grid__item">
-                                      <p class="info-modal__grid__name">Платеж в месяц</p>
-                                      <p class="info-modal__grid__value orange">от ${ product.chars["Ежемесячный платеж"].toLocaleString('ru-RU', { minimumFractionDigits: 0 }) } <span>₽</span></p>
-                                    </div>`
-                                : '' }
+                              <div class="info-modal__grid__item">
+                                  <p class="info-modal__grid__name">Платеж в месяц</p>
+                                  <p class="info-modal__grid__value">
+                                        ${ product.chars["Ежемесячный платеж"] ?
+                                            `от ${ product.chars["Ежемесячный платеж"].toLocaleString('ru-RU', { minimumFractionDigits: 0 }) } <span>₽</span>` :
+                                            '<p class="gray">Не указан</p>'
+                                        }
+                                  </p>
+                              </div>
 
                                <div class="info-modal__grid__item">
                                     <p class="info-modal__grid__name">Аванс</p>
@@ -450,7 +466,12 @@
 
                                   <div class="info-modal__table__item underline">
                                     <span>Сумма аванса</span>
-                                    <b>от ${ Math.floor(Number(product.chars["Начальная цена"]) * 0.1).toLocaleString('ru-RU', { minimumFractionDigits: 0 }) } ₽</b>
+
+                                    ${
+                                        product.chars["Начальная цена"] ? `
+                                          <b class="orange">от ${ Math.floor(Number(product.chars["Начальная цена"]) * 0.1).toLocaleString('ru-RU', { minimumFractionDigits: 0 }) } ₽</b>
+                                        ` : '<span class="gray">Не указан</span>'
+                                    }
                                   </div>
 
                                   <div class="info-modal__table__item underline">
@@ -460,7 +481,12 @@
 
                                   <div class="info-modal__table__item underline">
                                     <span>Ежемес. платеж</span>
-                                    <b class="orange">от ${ product.chars["Ежемесячный платеж"].toLocaleString('ru-RU', { minimumFractionDigits: 0 }) } ₽</b>
+
+                                    ${
+                                        product.chars["Ежемесячный платеж"] ? `
+                                          <b class="orange">от ${ product.chars["Ежемесячный платеж"].toLocaleString('ru-RU', { minimumFractionDigits: 0 })} ₽</b>
+                                        ` : '<span class="gray">Не указан</span>'
+                                    }
                                   </div>
 
                                   ${ product.chars["Сумма НДС к возмещению"] ? `
@@ -511,21 +537,20 @@
                 feedbackModalObjectContent.insertAdjacentHTML('afterbegin', `
                       <img src="${productImage}" alt="${thisProduct.title}">
                       <div class="custom-card__flex">
-                          <div class="custom-card__city">
-                              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
+                            ${ thisProduct.chars["Город"] ? `<div class="custom-card__city"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
                                   <path d="M0 0h16v16H0z" fill="none" />
                                   <path fill="black" d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6a3 3 0 0 1 0 6" />
-                                </svg>
-                              <span>${ thisProduct.chars["Город"] }</span>
-                            </div>
-                          <div class="custom-card__type">${ thisProduct.chars["Тип недвижимости"] }</div>
-                        <div class="custom-card__area">
+                                </svg><span>${ thisProduct.chars["Город"] }</div></span>` : ''
+                            }
+
+                            ${ thisProduct.chars["Категория"] ? `<div class="custom-card__type"><span>${ thisProduct.chars["Категория"] }</span> </div>` : '' }
+
+
+                            ${ thisProduct.chars["Площадь"] ? `<div class="custom-card__area">
                             <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 32 32">
                               <path d="M0 0h32v32H0z" fill="none" />
                               <path fill="white" d="M27 22.142V9.858A3.992 3.992 0 1 0 22.142 5H9.858A3.992 3.992 0 1 0 5 9.858v12.284A3.992 3.992 0 1 0 9.858 27h12.284A3.992 3.992 0 1 0 27 22.142M26 4a2 2 0 1 1-2 2a2 2 0 0 1 2-2M4 6a2 2 0 1 1 2 2a2 2 0 0 1-2-2m2 22a2 2 0 1 1 2-2a2 2 0 0 1-2 2m16.142-3H9.858A4 4 0 0 0 7 22.142V9.858A4 4 0 0 0 9.858 7h12.284A4 4 0 0 0 25 9.858v12.284A3.99 3.99 0 0 0 22.142 25M26 28a2 2 0 1 1 2-2a2.003 2.003 0 0 1-2 2" />
-                            </svg>
-                            ${ thisProduct.chars["Площадь"] } м<sup>2</sup>
-                          </div>
+                            </svg>${ thisProduct.chars["Площадь"] } м<sup>2</sup></div>` : '' }
                       </div>
                 `)
             }
@@ -533,7 +558,6 @@
 
         window.openPopUp = function (productId) {
             const thisProduct = window.estate_products.find(product => product.uid === Number(productId))
-
             if (thisProduct && window.t_store_openProductPopup) {
 
                 if (!closeInfoModalButton) {
@@ -584,8 +608,6 @@
                                         product.chars[char.title] = charValue
                                     })
                                 }
-
-                                console.log(product.chars)
                             })
 
                             const customCardsPlace = document.querySelector('.custom-card__container')
@@ -599,76 +621,82 @@
                                     } else {
                                         productImage = 'https://static.tildacdn.com/tild6339-3134-4430-b338-333965313536/logo_clean.svg'
                                     }
+
                                     productCard.innerHTML = `
+                                        <div class="${
+                                            product.chars["Статус"] === 'Строится' ? 'custom-card__label custom-card__label--in-progress' : 'custom-card__label custom-card__label--ready'
+                                        }">
+                                          ${product.chars["Статус"]}
+                                        </div>
                                         <div
-                                      class="${ product.chars["Статус"] === 'Строится' ? 'custom-card__label custom-card__label--in-progress' : 'custom-card__label custom-card__label--ready' }"
-                                      >
-                                        ${ product.mark }
-                                      </div>
-                                        <div
-                                        class="js-custom-open-popup"
-                                        onclick="window.openPopUp(${ product.uid })"
+                                          class="js-custom-open-popup"
+                                          onclick="window.openPopUp(${product.uid})"
                                         >
                                             <div class="custom-card__top">
                                                 <img
-                                                    src="${ productImage }"
-                                                    alt="${ product.title }"
+                                                    src="${productImage}"
+                                                    alt="${product.title}"
+                                                    loading="lazy"
                                                 >
                                             </div>
 
-                                            <div
-                                                class="custom-card__info"
-                                            >
+                                            <div class="custom-card__info">
                                                 <div class="custom-card__flex">
-                                                    <div class="custom-card__type">${ product.chars["Тип недвижимости"] }</div>
-                                                    <div class="custom-card__area">
-                                                      <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 32 32">
-                                                          <path d="M0 0h32v32H0z" fill="none" />
-                                                          <path fill="white" d="M27 22.142V9.858A3.992 3.992 0 1 0 22.142 5H9.858A3.992 3.992 0 1 0 5 9.858v12.284A3.992 3.992 0 1 0 9.858 27h12.284A3.992 3.992 0 1 0 27 22.142M26 4a2 2 0 1 1-2 2a2 2 0 0 1 2-2M4 6a2 2 0 1 1 2 2a2 2 0 0 1-2-2m2 22a2 2 0 1 1 2-2a2 2 0 0 1-2 2m16.142-3H9.858A4 4 0 0 0 7 22.142V9.858A4 4 0 0 0 9.858 7h12.284A4 4 0 0 0 25 9.858v12.284A3.99 3.99 0 0 0 22.142 25M26 28a2 2 0 1 1 2-2a2.003 2.003 0 0 1-2 2" />
-                                                      </svg>
-                                                      ${ product.chars["Площадь"] } м<sup>2</sup>
-                                                    </div>
-                                                </div>
-                                                ${ product.chars["Город"] ? `<div class="custom-card__city">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
-                                                      <path d="M0 0h16v16H0z" fill="none" />
-                                                      <path fill="black" d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6a3 3 0 0 1 0 6" />
-                                                    </svg>
-                                                    <span>${ product.chars["Город"] }</span>` : ''
-                                                }
+                                                    ${ product.chars["Категория"] ? `<div class="custom-card__type">${product.chars["Категория"]}</div>` : '<div></div>'}
+
+                                                    ${ product.chars["Площадь"] ? `
+                                                          <div class="custom-card__area">
+                                                              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 32 32">
+                                                                  <path d="M0 0h32v32H0z" fill="none" />
+                                                                  <path fill="white" d="M27 22.142V9.858A3.992 3.992 0 1 0 22.142 5H9.858A3.992 3.992 0 1 0 5 9.858v12.284A3.992 3.992 0 1 0 9.858 27h12.284A3.992 3.992 0 1 0 27 22.142M26 4a2 2 0 1 1-2 2a2 2 0 0 1 2-2M4 6a2 2 0 1 1 2 2a2 2 0 0 1-2-2m2 22a2 2 0 1 1 2-2a2 2 0 0 1-2 2m16.142-3H9.858A4 4 0 0 0 7 22.142V9.858A4 4 0 0 0 9.858 7h12.284A4 4 0 0 0 25 9.858v12.284A3.99 3.99 0 0 0 22.142 25M26 28a2 2 0 1 1 2-2a2.003 2.003 0 0 1-2 2" />
+                                                              </svg>
+                                                              ${product.chars["Площадь"]} м<sup>2</sup>
+                                                          </div>
+                                                        ` : '<div></div>' }
                                                 </div>
 
-                                                 <div class="custom-card__flex underline">
+                                                ${ product.chars["Город"] ? `
+                                                    <div class="custom-card__city">
+                                                       <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
+                                                          <path d="M0 0h16v16H0z" fill="none" />
+                                                          <path fill="black" d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6a3 3 0 0 1 0 6" />
+                                                       </svg>
+                                                       <span>${product.chars["Город"]}</span>
+                                                    </div>` : '<div></div>'
+                                                }
+
+                                                <div class="custom-card__flex underline">
                                                     <span>Цена:</span>
                                                     ${ product.chars["Начальная цена"] ? `
-                                                        <span class="custom-card__price">от ${ product.chars["Начальная цена"].toLocaleString('ru-RU', { style: 'currency', currency: 'RUB', minimumFractionDigits: 0 }) }</span>
+                                                        <span class="custom-card__price">от ${product.chars["Начальная цена"].toLocaleString('ru-RU', {
+                                                            style: 'currency',
+                                                            currency: 'RUB',
+                                                            minimumFractionDigits: 0
+                                                        })}</span>
                                                         ` : '<span class="custom-card__price">Не указана</span>'
                                                     }
-                                                  </div>
-
+                                                </div>
 
                                                 <div class="custom-card__flex underline">
                                                     <span>Платеж:</span>
                                                     ${ product.chars["Ежемесячный платеж"] ? `
-                                                       <span class="custom-card__price">от ${ product.chars["Ежемесячный платеж"].toLocaleString('ru-RU', { style: 'currency', currency: 'RUB', minimumFractionDigits: 0 }) }</span>
-                                                       ` : '<span class="custom-card__price">Не указан</span>'
-                                                    }
+                                                       <span class="custom-card__price">от ${product.chars["Ежемесячный платеж"].toLocaleString('ru-RU', { style: 'currency', currency: 'RUB', minimumFractionDigits: 0 } ) }</span>
+                                                       ` : '<span class="custom-card__price">Не указан</span>' }
                                                 </div>
 
                                                 <div class="custom-card__flex">
                                                     <span>Вернется налогами:</span>
 
                                                     ${ product.chars["Сумма НДС к возмещению"] ? `
-                                                       <span class="custom-card__price">от ${ product.chars["Сумма НДС к возмещению"].toLocaleString('ru-RU', { style: 'currency', currency: 'RUB', minimumFractionDigits: 0 }) }</span>
-                                                       ` : '<span class="custom-card__price">Не указано</span>'
-                                                    }
+                                                       <span class="custom-card__price">от ${product.chars["Сумма НДС к возмещению"].toLocaleString('ru-RU', { style: 'currency', currency: 'RUB', minimumFractionDigits: 0 } ) }</span>
+                                                       ` : '<span class="custom-card__price">Не указано</span>' }
                                                 </div>
 
-                                                <span class="custom-card__sku">${ product.uid }</span>
+                                                <span class="custom-card__sku">${product.uid}</span>
                                             </div>
                                         </div>
                                         <a
-                                            onclick="window.passObjectDataInFeedBackModal(${ product.uid })"
+                                            onclick="window.passObjectDataInFeedBackModal(${product.uid})"
                                             class="custom-card__request-button"
                                             href="#real_estate_feedback"
                                         >
