@@ -84,8 +84,8 @@
   left: 0;
   top: 0;
   height: 100%;
-  width: 250px;
-  background: linear-gradient(90deg, rgb(255, 255, 255) 25%, rgba(255, 255, 255, 0) 100%);
+  width: 400px;
+  background: linear-gradient(90deg, rgb(255, 255, 255) 55%, rgba(255, 255, 255, 0) 100%);
   z-index: 1;
 }
 .custom-catalog--short::after {
@@ -94,8 +94,8 @@
   right: 0;
   top: 0;
   height: 100%;
-  width: 250px;
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 25%, rgb(255, 255, 255) 100%);
+  width: 400px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgb(255, 255, 255) 42%);
   z-index: 1;
 }
 .custom-catalog--short .custom-catalog__more {
@@ -120,8 +120,8 @@
   border-radius: 12px;
   background-color: white;
   border: 1px solid #ccd0d4;
-  max-width: 300px;
-  width: 100%;
+  width: 300px;
+  flex-shrink: 0;
   font-family: "Somic", Arial, sans-serif;
   box-shadow: 4px 4px 7px 0 rgba(34, 60, 80, 0.25);
   transition: all 0.3s ease;
@@ -129,6 +129,23 @@
 .custom-card:hover {
   box-shadow: 4px 4px 7px 0 rgba(223, 112, 0, 0.25);
   border-color: #df7000;
+}
+.custom-card--additional {
+  justify-content: center;
+  align-items: center;
+  gap: 48px;
+}
+.custom-card--additional .custom-card__request-button {
+  margin-top: 0;
+}
+.custom-card--additional svg {
+  width: 120px;
+  height: 43px;
+}
+.custom-card--additional h3 {
+  font-style: italic;
+  font-size: 24px;
+  text-align: center;
 }
 .custom-card__top {
   border-radius: 12px;
