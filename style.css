@@ -26,6 +26,10 @@
   cursor: pointer;
 }
 
+.t-store__load-more-btn-wrap {
+  display: none;
+}
+
 .custom-catalog__more {
   padding: 64px 0 48px 0;
 }
