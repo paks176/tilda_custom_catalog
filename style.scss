@@ -3,12 +3,6 @@ $grayBorder: #ccd0d4;
 $mainOrange: #ff8000;
 $mainOrangeHover: #df7000;
 
-#custom-catalog {
-  padding: 80px 0;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
 #rec4071407101 {
   padding: 0 !important;
   background: none;
@@ -31,22 +25,99 @@ $mainOrangeHover: #df7000;
 }
 
 .custom {
-  &-catalog__more {
-    padding: 64px 0 48px 0;
+  &-catalog {
+    padding: 80px 0;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    font-family: "Somic", Arial, sans-serif;
+    .t-container {
+      position: relative;
+    }
+    &__swipe-btn {
+      cursor: pointer;
+      position: absolute;
+      top: calc(50% - 64px);
+      box-shadow: 4px 4px 7px 0 rgba(34, 60, 80, 0.25);
+      border-radius: 50%;
+      transition: opacity .3s ease;
+      height: 64px;
+      width: 64px;
+      z-index: 2;
+      &#swipe-right {
+        right: -75px;
+      }
+      &#swipe-left {
+        left: -75px;
+        opacity: 0;
+        pointer-events: none;
+      }
+    }
+    &__more {
+      padding: 64px 0 48px 0;
+      button {
+        margin: 0 auto;
+        min-width: 200px;
+        min-height: 57px;
+        font-size: 20px;
+        svg {
+          width: 32px;
+          height: 32px;
+        }
+      }
+    }
+    &__link {
+      display: none;
+      padding-top: 32px;
+      a {
+        text-align: end;
+        font-weight: 500;
+        font-size: 18px;
+        text-decoration: underline;
 
-    button {
-      margin: 0 auto;
-      min-width: 200px;
-      min-height: 57px;
-      font-size: 20px;
-      svg {
-        width: 32px;
-        height: 32px;
+      }
+    }
+    &--short {
+      position: relative;
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 250px;
+        background: linear-gradient(90deg, rgb(255, 255, 255) 25%, rgba(255, 255, 255, 0) 100%);
+        z-index: 1;
+      }
+      &::after {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 0;
+        height: 100%;
+        width: 250px;
+        background: linear-gradient(90deg, rgba(255, 255, 255, 0) 25%, rgb(255, 255, 255) 100%);
+        z-index: 1;
+      }
+      .custom-catalog__more {
+        display: none;
+      }
+      .custom-catalog__link {
+        display: flex;
+        justify-content: flex-end;
+      }
+      .custom-card__container {
+        padding: 32px 0;
+        display: flex;
+        transition: transform .3s ease;
+        will-change: auto;
       }
     }
   }
   &-card {
     position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     padding: 12px;
     border-radius: 12px;
     background-color: white;

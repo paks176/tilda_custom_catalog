@@ -1,6 +1,22 @@
-<section id="custom-catalog">
+<section class="custom-catalog">
     <div class="t-container">
+        <div id="swipe-left" class="custom-catalog__swipe-btn">
+            <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M64 32C64 14.3274 49.6726 5.27821e-07 32 -1.01717e-06C14.3274 -2.56216e-06 1.19719e-05 14.3274 1.04269e-05 32C8.88193e-06 49.6726 14.3274 64 32 64C49.6726 64 64 49.6726 64 32ZM50.2857 34.2857L22.5119 34.2857L35.2679 47.1012L32 50.2857L13.7143 32L32 13.7143L35.2679 16.9762L22.5119 29.7143L50.2857 29.7143L50.2857 34.2857Z" fill="black" />
+                <path d="M22.5119 34.2857L50.2857 34.2857L50.2857 29.7143L22.5119 29.7143L35.2679 16.9762L32 13.7143L13.7143 32L32 50.2857L35.2679 47.1012L22.5119 34.2857Z" fill="white" />
+            </svg>
+        </div>
+        <div id="swipe-right" class="custom-catalog__swipe-btn">
+            <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 32C0 49.6726 14.3274 64 32 64C49.6726 64 64 49.6726 64 32C64 14.3274 49.6726 0 32 0C14.3274 0 0 14.3274 0 32ZM13.7143 29.7143L41.4881 29.7143L28.7321 16.8988L32 13.7143L50.2857 32L32 50.2857L28.7321 47.0238L41.4881 34.2857L13.7143 34.2857V29.7143Z" fill="black" />
+                <path d="M41.4881 29.7143L13.7143 29.7143V34.2857L41.4881 34.2857L28.7321 47.0238L32 50.2857L50.2857 32L32 13.7143L28.7321 16.8988L41.4881 29.7143Z" fill="white" />
+            </svg>
+        </div>
+
         <div class="custom-card__container"></div>
+        <div class="custom-catalog__link">
+            <a href="/catalog/">Смотреть все позиции по недвижимости 👉</a>
+        </div>
         <div class="custom-catalog__more">
             <button
                 class="custom-card__request-button"
@@ -13,12 +29,6 @@
 </section>
 
 <style>
-    #custom-catalog {
-        padding: 80px 0;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-    }
-
     #rec4071407101 {
         padding: 0 !important;
         background: none;
@@ -44,6 +54,34 @@
         display: none;
     }
 
+    .custom-catalog {
+        padding: 80px 0;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        font-family: "Somic", Arial, sans-serif;
+    }
+    .custom-catalog .t-container {
+        position: relative;
+    }
+    .custom-catalog__swipe-btn {
+        cursor: pointer;
+        position: absolute;
+        top: calc(50% - 64px);
+        box-shadow: 4px 4px 7px 0 rgba(34, 60, 80, 0.25);
+        border-radius: 50%;
+        transition: opacity 0.3s ease;
+        height: 64px;
+        width: 64px;
+        z-index: 2;
+    }
+    .custom-catalog__swipe-btn#swipe-right {
+        right: -75px;
+    }
+    .custom-catalog__swipe-btn#swipe-left {
+        left: -75px;
+        opacity: 0;
+        pointer-events: none;
+    }
     .custom-catalog__more {
         padding: 64px 0 48px 0;
     }
@@ -57,8 +95,57 @@
         width: 32px;
         height: 32px;
     }
+    .custom-catalog__link {
+        display: none;
+        padding-top: 32px;
+    }
+    .custom-catalog__link a {
+        text-align: end;
+        font-weight: 500;
+        font-size: 18px;
+        text-decoration: underline;
+    }
+    .custom-catalog--short {
+        position: relative;
+    }
+    .custom-catalog--short::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 250px;
+        background: linear-gradient(90deg, rgb(255, 255, 255) 25%, rgba(255, 255, 255, 0) 100%);
+        z-index: 1;
+    }
+    .custom-catalog--short::after {
+        content: "";
+        position: absolute;
+        right: 0;
+        top: 0;
+        height: 100%;
+        width: 250px;
+        background: linear-gradient(90deg, rgba(255, 255, 255, 0) 25%, rgb(255, 255, 255) 100%);
+        z-index: 1;
+    }
+    .custom-catalog--short .custom-catalog__more {
+        display: none;
+    }
+    .custom-catalog--short .custom-catalog__link {
+        display: flex;
+        justify-content: flex-end;
+    }
+    .custom-catalog--short .custom-card__container {
+        padding: 32px 0;
+        display: flex;
+        transition: transform 0.3s ease;
+        will-change: auto;
+    }
     .custom-card {
         position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
         padding: 12px;
         border-radius: 12px;
         background-color: white;
@@ -282,12 +369,11 @@
     .js-store-prod-text {
         display: none;
     }
-
-    /*# sourceMappingURL=style.css.map */
-
 </style>
 
 <script>
+    const isFullComponentVersion = false
+
     const popUpClass = 't778'
     const feedBackModalClass = 't702'
     let estate_products = []
@@ -301,7 +387,7 @@
         getparts: 'true',
         getoptions: 'true',
         slice: 1, // страница
-        size: 36, // кол-во элементов в ответе
+        size: isFullComponentVersion ? 36 : 5, // кол-во элементов в ответе
         flag_root: 'withroot'
     }
 
@@ -312,13 +398,11 @@
         }
         return clearURL
     }
-
     //--url helpers
 
-    const isFullComponentVersion = true
-
     window.addEventListener('DOMContentLoaded', () => {
-        const customCatalogPlace = document.getElementById('custom-catalog')
+        const customCatalogPlace = document.querySelector('.custom-catalog')
+
         const customCardsPlace = document.querySelector('.custom-card__container')
         const moreButton = customCatalogPlace.querySelector('.custom-card__request-button')
         const feedbackModalObjectPlace = document.querySelector('.' + feedBackModalClass + '__wrapper')
@@ -341,6 +425,41 @@
             'Общая сумма затрат с учётом выгоды по налогам',
             'Сумма договора лизинга'
         ]
+
+        if (!isFullComponentVersion) {
+            customCatalogPlace.classList.add('custom-catalog--short')
+            let currentSwipe = 0
+            const swipeLeft = customCatalogPlace.querySelector('#swipe-left')
+            const swipeRight = customCatalogPlace.querySelector('#swipe-right')
+            swipeRight.addEventListener('click', () => {
+                swipeLeft.style.opacity = '1'
+                swipeLeft.style.pointerEvents = 'auto'
+                currentSwipe -= 355
+                if (currentSwipe < -920) {
+                    currentSwipe = -920
+                    swipeRight.style.opacity = '0'
+                    swipeRight.style.pointerEvents = 'none'
+                } else {
+                    swipeRight.style.opacity = '1'
+                    swipeRight.style.pointerEvents = 'auto'
+                }
+                customCardsPlace.style.transform = `translate(${currentSwipe}px, 0)`
+            })
+            swipeLeft.addEventListener('click', () => {
+                swipeRight.style.opacity = '1'
+                swipeRight.style.pointerEvents = 'auto'
+                currentSwipe += 355
+                if (currentSwipe > 0 && currentSwipe < 355) {
+                    currentSwipe = 0
+                    swipeLeft.style.opacity = '0'
+                    swipeLeft.style.pointerEvents = 'none'
+                } else {
+                    swipeLeft.style.opacity = '1'
+                    swipeLeft.style.pointerEvents = 'auto'
+                }
+                customCardsPlace.style.transform = `translate(${currentSwipe}px, 0)`
+            })
+        }
 
         // Tilda modals options
         var prodcard_optsObj = {
@@ -423,7 +542,7 @@
             isHorizOnMob: false,
             itemsAnim: '',
             hasOriginalAspectRatio: false,
-            size: 36,
+            size: rawSearchParams.size, // берется из параметров выше
             markColor: '#ffffff',
             markBgColor: '#ff4a4a',
             currencySide: 'r',
@@ -564,7 +683,7 @@
         }
 
         window.passObjectDataInFeedBackModal = function (productId) {
-            const thisProduct = window.estate_products.find(product => product.uid === Number(productId))
+            const thisProduct = estate_products.find(product => product.uid === Number(productId))
 
             if (thisProduct && feedbackModalObjectPlace) {
                 const IdInput = feedbackModalObjectPlace.querySelector('input[name="estate_id"]')
@@ -612,7 +731,7 @@
         }
 
         window.openPopUp = function (productId) {
-            const thisProduct = window.estate_products.find(product => product.uid === Number(productId))
+            const thisProduct = estate_products.find(product => product.uid === Number(productId))
             if (thisProduct && window.t_store_openProductPopup) {
 
                 if (!closeInfoModalButton) {
