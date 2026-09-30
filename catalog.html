@@ -839,10 +839,11 @@
                                         const productCard = document.createElement('div')
                                         productCard.className = 'custom-card'
                                         let productImage
-                                        if (product.gallery && product.gallery.length) {
-                                            productImage = JSON.parse(product.gallery)[0].img
+                                        const gallery = JSON.parse(product.gallery)
+                                        if (gallery && gallery.length) {
+                                            productImage = gallery[0].img
                                         } else {
-                                            productImage = 'https://static.tildacdn.com/tild6339-3134-4430-b338-333965313536/logo_clean.svg'
+                                            productImage = 'https://static.tildacdn.com/tild3863-6562-4336-a165-323062323165/Group_2043682667_2.jpg'
                                         }
 
                                         productCard.innerHTML = `
